@@ -1,11 +1,11 @@
 import User from "../models/user.model.js";
-const registerUser=async (req, res) => {
-  const { username, userId, deviceId } = req.body;
+const registerUser= async (req, res) => {
+  const { email,username, userId, deviceId } = req.body;
 
   try {
     // Check if the user already exists (by username, userId, or deviceId)
     const existingUser = await User.findOne({
-      $or: [{ username }, { userId }, { deviceId }]
+      $or: [{ username }, { userId }, { deviceId },{email}]
     });
 
     if (existingUser) {
@@ -16,7 +16,7 @@ const registerUser=async (req, res) => {
     const newUser = new User({
       username,
       userId,
-      deviceId
+      deviceId,email
     });
 
     await newUser.save();
