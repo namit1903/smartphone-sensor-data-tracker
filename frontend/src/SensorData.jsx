@@ -7,7 +7,7 @@ const SensorData = () => {
 
     useEffect(() => {
         // Fetch data from the backend
-        axios.get('http://localhost:3000/api/data')
+        axios.get('http://localhost:5000/api/accelerometer-data')
             .then(response => {
                 setData(response.data);
                 setLoading(false);
