@@ -4,13 +4,16 @@ import User from "../models/user.model.js";
 const getData = async (req, res) => {
   const { username } = req.query; 
   // const { username, userId, deviceId } = req.query; 
+  // console.log("user")
 
   try {
    
     let query = {};
     
     if (username) {
+      console.log("user")
       const user = await User.findOne({ username }); // Find user by username
+      // console.log("data of user",user);
       if (!user) {
         return res.status(404).send('User not found');
       }
@@ -34,7 +37,15 @@ const getData = async (req, res) => {
     }
 
     // Send the retrieved data as the response
-    res.status(200).json(data);
+    res.status(200).json({
+      user: {
+        username: User.username,
+        email: User.email,
+        deviceId: User.deviceId,
+        userId: User.userId
+      },
+      data
+    });
 
   } catch (error) {
     console.error("Error occurred while retrieving data:", error);

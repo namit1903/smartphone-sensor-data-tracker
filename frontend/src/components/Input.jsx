@@ -7,9 +7,7 @@ import SensorData from './SensorData';
 // Function to fetch accelerometer data based on the username
 const fetchAccelerometerData = async (username) => {
   const response = await axios.get(`http://localhost:5000/api/accelerometer-data?username=${username}`);
-  // console.log(response);
-  data=response.data
-  console.log(data);
+  
   if (response.status !== 200) throw new Error('Error fetching data');
   return response.data;
 };
@@ -20,11 +18,11 @@ const UsernameInput = () => {
 
   // TanStack Query to fetch data based on the username entered
   const { data, isLoading, error } = useQuery({
-    queryKey: ['accelerometerData', username], // The query key
-    queryFn: () => fetchAccelerometerData(username), // The data-fetching function
-    enabled: fetchingData && username.trim().length > 0, // Only fetch data if the button is clicked
-    onSuccess: () => setFetchingData(false), // Stop fetching once the data is loaded
-    onError: () => setFetchingData(false), // Stop fetching if there is an error
+    queryKey: ['accelerometerData', username],
+    queryFn: () => fetchAccelerometerData(username),
+    enabled: fetchingData && username.trim().length > 0,
+    onSuccess: () => setFetchingData(false),
+    onError: () => setFetchingData(false),
   });
 
   // Handle input change
